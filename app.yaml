@@ -1,0 +1,20 @@
+env: standard
+runtime: $nodeversion
+service: $nombredelmicroservicio
+
+instance_class: $tipodeinstancia
+
+handlers:
+  - url: /.*
+    secure: always
+    redirect_http_response_code: 301
+    script: auto
+
+basic_scaling:
+  max_instances: 1
+  idle_timeout: 10m
+
+env_variables:
+  NODE_ENV: 'production'
+
+service_account: $cuentadeservicio
