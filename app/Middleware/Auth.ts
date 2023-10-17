@@ -18,6 +18,7 @@ export default class Auth {
     }
 
     if(request.header('X-API-Key','') !== Env.get('API_KEY')){
+      logger.warn({warn: unauthorized,headers: request.headers()}, 'Request Middleware')
       response.unauthorized({ error: unauthorized })
       return
     }
