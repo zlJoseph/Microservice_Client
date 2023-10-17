@@ -13,8 +13,6 @@ export default class extends BaseSchema {
       table.date('birthdate').notNullable()
       
       table.timestamps(true, true);
-      //table.timestamp('created_at', { useTz: true })//true for MSSQL
-      //table.timestamp('updated_at', { useTz: true })//true for MSSQL
     })
   }
 
