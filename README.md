@@ -24,9 +24,6 @@
 1. [Introducción](#introducción)
 2. [Prerrequisitos](#prerrequisitos)
 3. [Instalación](#instalación)
-4. [Contribución](#contribución)
-5. [Licencia](#licencia)
-6. [Agradecimientos](#agradecimientos)
 
 ## Introducción
 
@@ -62,7 +59,7 @@ cd Microservice_Client
 npm install
 ```
 
-3. Cree un nuevo archivo `.env` y copia el contenido de `.env.example` en el. Configurar con sus credenciales de base de datos si fuese necesario
+3. Cree un nuevo archivo `.env` y copia el contenido de `.env.example` en el. Configurar con sus credenciales de base de datos si fuese necesario.
 
 ```ini 
 PORT=3000
@@ -86,7 +83,13 @@ MYSQL_DB_NAME=promart
 ```bash
 node ace migration:run
 ```
-5. Inicia el servidor de desarrollo.
+
+5. Podemos ejecutar los  `seeders` si queremos agregar datos iniciales.
+```bash
+node ace db:seed
+```
+
+6. Inicia el servidor de desarrollo.
 
 ```bash
 node ace serve --watch
