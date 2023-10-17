@@ -23,7 +23,7 @@ export default class ClientsController {
       }
       const limit = 10
       const clients = await Client.query().paginate(page,limit)
-      response.ok(clients.serialize({fields: { omit: ['name','surname','mothers_surname','probable_death_date'] }}))
+      response.ok(clients.serialize({fields: { omit: ['name','surname','mothers_surname','probable_death_date','created_at','updated_at'] }}))
     }catch(error){
       logger.error({ err: error }, 'Get Clients');
       response.status(500).send({ message: error500 })
@@ -39,6 +39,8 @@ export default class ClientsController {
   public async store({ response, request, logger }: HttpContextContract) {
     try{
       const clientInput = await request.validate(CreateClientValidator)
+      console.log(clientInput.birthdate);
+      
       const client = await Client.create({
         name: clientInput.name, 
         surname: clientInput.surname, 
@@ -46,7 +48,7 @@ export default class ClientsController {
         birthdate: clientInput.birthdate.toJSDate()
       })
       Event.emit('new:client', { age: client.age, name: client.name, surname: client.surname, mothers_surname: client.mothers_surname })
-      response.ok({msg: createSuccess, data: client.serialize({fields: { omit: ['id'] }})})
+      response.created({msg: createSuccess, data: client.serialize({fields: { omit: ['id','created_at','updated_at'] }})})
     }catch(error){
       logger.error({ err: error }, 'Create Client');
       if (error instanceof ValidationException) {
@@ -83,7 +85,7 @@ export default class ClientsController {
         response.status(404).send({ message: clientNotFound })
         return
       }
-      response.ok({...client.serialize({fields: { omit: ['id'] }})})
+      response.ok({...client.serialize({fields: { omit: ['id','full_name','created_at','updated_at'] }})})
     }catch (error) {
       logger.error({ err: error }, 'Get ClientBy');
       response.status(500).send({ message: error500 })

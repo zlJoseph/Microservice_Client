@@ -1,8 +1,12 @@
 import { validator } from '@ioc:Adonis/Core/Validator'
+import { DateTime } from 'luxon';
 
 validator.rule('birthdate',
     (value, { maxAge }, options) => {
-        var numerador = (new Date()).getTime() - value.toJSDate()
+        if (!(value instanceof DateTime)) {
+            return
+        }
+        var numerador = (new Date()).getTime() - value.toJSDate().getTime()
         if(numerador<=0){
             options.errorReporter.report(
                 options.pointer,
