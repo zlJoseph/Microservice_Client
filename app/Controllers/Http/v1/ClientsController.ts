@@ -40,9 +40,9 @@ export default class ClientsController {
     try{
       const clientInput = await request.validate(CreateClientValidator)
       const client = await Client.create({
-        name: clientInput.name, 
-        surname: clientInput.surname, 
-        mothers_surname: clientInput.mothers_surname?clientInput.mothers_surname:'', 
+        name: clientInput.name.trim(), 
+        surname: clientInput.surname.trim(), 
+        mothers_surname: clientInput.mothers_surname?clientInput.mothers_surname.trim():'', 
         birthdate: clientInput.birthdate.toJSDate()
       })
       Event.emit('new:client', { age: client.age, name: client.name, surname: client.surname, mothers_surname: client.mothers_surname })

@@ -23,7 +23,7 @@ export default class Client extends BaseModel {
 
   @computed()
   public get full_name(){
-    return `${this.name} ${this.surname} ${this.mothers_surname}`
+    return `${this.name} ${this.surname} ${this.mothers_surname}`.trim()
   }
 
   @column()
