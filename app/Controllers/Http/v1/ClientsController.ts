@@ -39,18 +39,16 @@ export default class ClientsController {
   public async store({ response, request, logger }: HttpContextContract) {
     try{
       const clientInput = await request.validate(CreateClientValidator)
-      console.log(clientInput.birthdate);
-      
       const client = await Client.create({
         name: clientInput.name, 
         surname: clientInput.surname, 
-        mothers_surname: clientInput.mothers_surname, 
+        mothers_surname: clientInput.mothers_surname?clientInput.mothers_surname:'', 
         birthdate: clientInput.birthdate.toJSDate()
       })
       Event.emit('new:client', { age: client.age, name: client.name, surname: client.surname, mothers_surname: client.mothers_surname })
       response.created({msg: createSuccess, data: client.serialize({fields: { omit: ['id','created_at','updated_at'] }})})
     }catch(error){
-      logger.error({ err: error }, 'Create Client');
+      logger.error({ err: error,data: request.body() }, 'Create Client');
       if (error instanceof ValidationException) {
         response.status(400).send({ message: 'Error de validación.', errors: (error as any).messages.errors.map(item => {
             return {

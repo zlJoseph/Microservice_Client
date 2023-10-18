@@ -7,7 +7,7 @@ export default class CreateClientValidator {
   public schema = schema.create({
     name: schema.string([rules.regex(new RegExp(/^[A-Za-zÁáÉéÍíÓóÚúÜü\s]*$/))]),
     surname: schema.string([rules.regex(new RegExp(/^[A-Za-zÁáÉéÍíÓóÚúÜü\s]*$/))]),
-    mothers_surname: schema.string([rules.regex(new RegExp(/^[A-Za-zÁáÉéÍíÓóÚúÜü\s]*$/))]),
+    mothers_surname: schema.string.nullableAndOptional([rules.regex(new RegExp(/^[A-Za-zÁáÉéÍíÓóÚúÜü\s]*$/))]),
     birthdate: schema.date({format: 'yyyy-MM-dd'},[rules.birthdate()])
   })
 
