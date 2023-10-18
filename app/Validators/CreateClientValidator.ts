@@ -5,9 +5,9 @@ export default class CreateClientValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    name: schema.string([rules.regex(new RegExp(/^[A-Za-zÁáÉéÍíÓóÚúÜü\s]*$/))]),
-    surname: schema.string([rules.regex(new RegExp(/^[A-Za-zÁáÉéÍíÓóÚúÜü\s]*$/))]),
-    mothers_surname: schema.string.nullableAndOptional([rules.regex(new RegExp(/^[A-Za-zÁáÉéÍíÓóÚúÜü\s]*$/))]),
+    name: schema.string([rules.regex(new RegExp(/^[A-Za-zÁáÉéÍíÓóÚúÜüñÑ\s']*$/))]),
+    surname: schema.string([rules.regex(new RegExp(/^[A-Za-zÁáÉéÍíÓóÚúÜüñÑ\s']*$/))]),
+    mothers_surname: schema.string.nullableAndOptional([rules.regex(new RegExp(/^[A-Za-zÁáÉéÍíÓóÚúÜüñÑ\s']*$/))]),
     birthdate: schema.date({format: 'yyyy-MM-dd'},[rules.birthdate()])
   })
 
